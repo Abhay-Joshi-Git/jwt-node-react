@@ -40,6 +40,10 @@ app.post('/login', (req, res) => {
 	});
 });
 
+app.get('isloggedin', jwtMiddleWare, (req, res) => {
+	res.sendStatus(200);
+})
+
 
 // NOTE - usage of jwtMiddleWare for the secured route
 app.post('/feed', jwtMiddleWare, (req, res) => {
@@ -51,7 +55,7 @@ app.post('/feed', jwtMiddleWare, (req, res) => {
 	res.sendStatus(200)
 });
 
-app.get('/feeds', (req, res) => {
+app.get('/feeds', jwtMiddleWare, (req, res) => {
 	res.send(feeds);
 });
 

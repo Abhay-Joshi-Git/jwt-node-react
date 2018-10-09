@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from 'reactstrap';  // Container, Row, Col
 import './Login.css';
-
+import LoadingIndicator from 'components/loadingIndicator/LoadingIndicator';
+import { login } from 'services/auth';
 class Login extends Component {
 	handleChange = (e) => {
 		this.setState({
@@ -11,7 +12,7 @@ class Login extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('this.state', this.state);
+		this.props.onSubmit(this.state.username, this.state.password)
 	}
 
 	render() {
@@ -35,14 +36,46 @@ class Login extends Component {
 							onChange={this.handleChange}
 						/>
 						<div className="my-2 d-flex justify-content-end">
-							<Button color="primary">Submit</Button>
+							<Button color="primary" onClick={this.handleSubmit}>Submit</Button>
 						</div>
 					</Form>
 				</div>
 			</div>
 		);
 	}
-
 }
 
-export default Login;
+class LoginContainer extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			loginInProgress: false
+		}
+	}
+
+	doLogin = async (username, password) => {
+		this.setState({
+			loginInProgress: true
+		})
+		try {
+			await login(username, password)
+			const { history } = this.props
+			history.push('/');
+		} catch (e) {
+			this.setState({
+				loginInProgress: false
+			})
+		}
+	}
+
+	render() {
+		return (
+			<div className="position-relative">
+				{this.state.loginInProgress && <LoadingIndicator className="loading-container" />}
+				<Login onSubmit={this.doLogin} />			
+			</div>
+		)
+	}
+}
+
+export default LoginContainer;
