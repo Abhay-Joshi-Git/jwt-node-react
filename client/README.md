@@ -1,0 +1,1 @@
+simple example of using jwt in react client
