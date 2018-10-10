@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavbarBrand, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-const Toolbar = () => (
-	<Navbar color="light" light expand="md">
+const Toolbar = ({ auth, isLoginPage, location }) => (
+	<Navbar color="light" light expand="md" className="mb-4">
 		<NavbarBrand href="/">Feeds Bar</NavbarBrand>
 		<Nav>
 			<NavItem>
@@ -11,10 +13,10 @@ const Toolbar = () => (
 			</NavItem>
 		</Nav>
 		<Nav className="ml-auto">
-			<NavItem>
+			{!auth && !isLoginPage && <NavItem>
 				<Link to="/login" className="nav-link">Login</Link>
-			</NavItem>
-			<UncontrolledDropdown nav inNavbar>
+			</NavItem>}
+			{auth && <UncontrolledDropdown nav inNavbar>
 				<DropdownToggle nav caret>
 					Profile
 				</DropdownToggle>
@@ -23,9 +25,18 @@ const Toolbar = () => (
 						Logout
 					</DropdownItem>
 				</DropdownMenu>
-			</UncontrolledDropdown>
+			</UncontrolledDropdown>}
 		</Nav>
 	</Navbar>
 );
 
-export default Toolbar;
+const mapStateToProps = (state, ownProps) => {
+	return {
+		auth: state.auth,
+		isLoginPage: ownProps.location.pathname === '/login'
+	}
+}
+
+export default withRouter(
+	connect(mapStateToProps)(Toolbar)
+);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { getFeeds } from 'services/feeds';
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from 'reactstrap'
+import LoadingIndicator from 'components/loadingIndicator/LoadingIndicator';
 
 const Feeds = ({ feeds }) => (
 	<div className="h-100">
@@ -23,23 +24,29 @@ class FeedsContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			loadingData: false,
 			feeds: null
 		}
 	}
 
 	async componentDidMount() {
-		const feeds = await getFeeds()
-		this.setState({ feeds })
+		this.setState({ loadingData: true })
+		try {
+			const feeds = await getFeeds()
+			this.setState({ feeds })	
+		} finally {
+			this.setState({ loadingData: false })
+		}
 	}
 
 	render() {
 		return (
-			<div>
+			<div style={{ minHeight: 300, position: 'relative' }}>
+				{this.state.loadingData && <LoadingIndicator className="loading-container" />}
 				<Feeds feeds={this.state.feeds} />
 			</div>
 		)
 	}
-	
 }
 
 export default FeedsContainer;
