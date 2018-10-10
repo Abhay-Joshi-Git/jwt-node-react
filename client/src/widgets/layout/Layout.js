@@ -2,12 +2,24 @@ import React from 'react';
 import Toolbar from './Toolbar';
 import Content from './Content';
 import { Container } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
+import { configureInterceptor } from 'services/interceptor';
 
-const Layout = () => (
-	<Container className="full-height">
-		<Toolbar />
-		<Content />
-	</Container>
-);
+class Layout extends React.Component {
+	componentDidMount() {
+		configureInterceptor(this.props.history)
+	}
 
-export default Layout;
+	render() {
+		return (
+			<Container className="full-height">
+				<Toolbar />
+				<Content />
+			</Container>
+		);		
+	}
+
+}
+
+
+export default withRouter(Layout);

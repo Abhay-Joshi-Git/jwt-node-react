@@ -1,10 +1,14 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
+let unauthorizedHandler = () => {
+	window.location = '/login'
+}
+
 axios.interceptors.request.use((config) => {
 	const authToken = getToken()
 	console.log(' in axios interceptor --- ', config, authToken)
-	let updatedConfig = {...config}
+	let updatedConfig = { ...config }
 	if (config && config.headers && !config.headers.Authorization && authToken) {
 		updatedConfig.headers = {
 			...updatedConfig.headers,
@@ -17,9 +21,16 @@ axios.interceptors.request.use((config) => {
 });
 
 axios.interceptors.response.use(function (response) {
-  return response;
+	return response;
 }, function (error) {
-  if (error.response.status === 401) {
-		window.location = '/login'
+	if (error.response.status === 401) {
+		unauthorizedHandler()
 	}
+	return Promise.reject(error);
 })
+
+export const configureInterceptor = (history) => {
+	unauthorizedHandler = () => {
+		history.push('/login')
+	}
+}
