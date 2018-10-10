@@ -33,7 +33,7 @@ app.post('/login', (req, res) => {
 		name: loginInfo.userName
 	};
 	const token = jwt.sign(user, process.env.JWT_SECRET, {
-		expiresIn: 60 * 60 *24
+		expiresIn: 60 * 2
 	});
 	res.send({
 		token
@@ -56,6 +56,7 @@ app.post('/feed', jwtMiddleWare, (req, res) => {
 });
 
 app.get('/feeds', jwtMiddleWare, (req, res) => {
+	console.log(' in get feeds ')
 	res.send(feeds);
 });
 
