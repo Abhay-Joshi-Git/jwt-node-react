@@ -8,9 +8,12 @@
     "emotion": "^9.2.12",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",
-    "reactstrap": "^6.5.0"
+    "reactstrap": "^6.5.0",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.2"
   },
   "proxy": "http://localhost:8080/",
   "scripts": {

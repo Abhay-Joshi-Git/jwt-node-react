@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Button } from 'reactstrap';  // Container, Row, Col
 import './Login.css';
 import LoadingIndicator from 'components/loadingIndicator/LoadingIndicator';
-import { login } from 'services/auth';
+import { login } from 'services/authentication/auth';
 class Login extends Component {
 	handleChange = (e) => {
 		this.setState({

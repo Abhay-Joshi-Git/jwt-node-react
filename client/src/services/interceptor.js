@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from './auth'
+import { getToken } from './authentication/auth'
 
 let unauthorizedHandler = () => {
 	window.location = '/login'
