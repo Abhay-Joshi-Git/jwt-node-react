@@ -4,8 +4,8 @@ import { SET_AUTHENTICATION_STATE, DO_LOGIN } from './types'
 import { setToken, removeToken } from 'services/token'
 import { setAuthentication } from './actions'
 
-function* doLogin (userName, password) {
-	const response = yield call(login, [userName, password])
+function* doLogin (action) {
+	const response = yield call(login, action.payload)
 	setToken(response.token)
 	yield put(setAuthentication, true)
 }

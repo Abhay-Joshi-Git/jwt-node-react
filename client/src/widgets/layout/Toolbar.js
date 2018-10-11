@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavbarBrand, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { connect } from 'react-redux'
 
-const Toolbar = () => (
+const Toolbar = ({ auth }) => (
 	<Navbar color="light" light expand="md">
 		<NavbarBrand href="/">Feeds Bar</NavbarBrand>
 		<Nav>
@@ -10,7 +11,7 @@ const Toolbar = () => (
 				<Link to="/sources" className="nav-link">Sources</Link>
 			</NavItem>
 		</Nav>
-		<Nav className="ml-auto">
+		{auth && <Nav className="ml-auto">
 			<NavItem>
 				<Link to="/login" className="nav-link">Login</Link>
 			</NavItem>
@@ -24,8 +25,12 @@ const Toolbar = () => (
 					</DropdownItem>
 				</DropdownMenu>
 			</UncontrolledDropdown>
-		</Nav>
+		</Nav>}
 	</Navbar>
 );
 
-export default Toolbar;
+const mapStateToProps = (state) => ({
+	auth: state.auth
+})
+
+export default connect(mapStateToProps)(Toolbar);

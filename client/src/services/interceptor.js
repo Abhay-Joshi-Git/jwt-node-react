@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { getToken } from './authentication/auth'
+import { getToken } from 'services/token'
+import { SET_AUTHENTICATION_STATE } from 'services/authentication/types'
 
 let unauthorizedHandler = () => {
 	window.location = '/login'
@@ -29,8 +30,11 @@ axios.interceptors.response.use(function (response) {
 	return Promise.reject(error);
 })
 
-export const configureInterceptor = (history) => {
+export const configureInterceptor = (store) => {
 	unauthorizedHandler = () => {
-		history.push('/login')
+		store.dispatch({
+			type: SET_AUTHENTICATION_STATE,
+			payload: false
+		})
 	}
 }
