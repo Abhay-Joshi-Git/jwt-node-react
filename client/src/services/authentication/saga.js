@@ -3,6 +3,7 @@ import { login } from './api'
 import { SET_AUTHENTICATION_STATE, DO_LOGIN } from './types'
 import { setToken, removeToken } from 'services/token'
 import { setAuthentication } from './actions'
+import { push } from 'react-router-redux';
 
 function* doLogin (action) {
 	const response = yield call(login, action.payload)
@@ -14,16 +15,19 @@ function* takeLogin() {
 	yield takeLatest(DO_LOGIN, doLogin)
 }
 
-function handleAuthStateSet(action) {
-	if (!action.payload) {
-		removeToken()
+function* handleAuthStateSet(action) {
+	if (action.payload) {
+		yield put(push('/'));
+	} else {
+		removeToken();
+		yield put(push('/login'));
 	}
 }
 
 function* takeAuthStateSet() {
 	while (true) {
 		const action = yield take(SET_AUTHENTICATION_STATE)
-		handleAuthStateSet(action)
+		yield handleAuthStateSet(action)
 	}
 }
 

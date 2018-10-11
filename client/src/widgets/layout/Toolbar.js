@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavbarBrand, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-const Toolbar = ({ auth }) => (
+const Toolbar = ({ auth, isLoginPage, location }) => (
 	<Navbar color="light" light expand="md">
 		<NavbarBrand href="/">Feeds Bar</NavbarBrand>
 		<Nav>
@@ -11,11 +12,11 @@ const Toolbar = ({ auth }) => (
 				<Link to="/sources" className="nav-link">Sources</Link>
 			</NavItem>
 		</Nav>
-		{auth && <Nav className="ml-auto">
-			<NavItem>
+		<Nav className="ml-auto">
+			{!auth && !isLoginPage && <NavItem>
 				<Link to="/login" className="nav-link">Login</Link>
-			</NavItem>
-			<UncontrolledDropdown nav inNavbar>
+			</NavItem>}
+			{auth && <UncontrolledDropdown nav inNavbar>
 				<DropdownToggle nav caret>
 					Profile
 				</DropdownToggle>
@@ -24,13 +25,18 @@ const Toolbar = ({ auth }) => (
 						Logout
 					</DropdownItem>
 				</DropdownMenu>
-			</UncontrolledDropdown>
-		</Nav>}
+			</UncontrolledDropdown>}
+		</Nav>
 	</Navbar>
 );
 
-const mapStateToProps = (state) => ({
-	auth: state.auth
-})
+const mapStateToProps = (state, ownProps) => {
+	return {
+		auth: state.auth,
+		isLoginPage: ownProps.location.pathname === '/login'
+	}
+}
 
-export default connect(mapStateToProps)(Toolbar);
+export default withRouter(
+	connect(mapStateToProps)(Toolbar)
+);

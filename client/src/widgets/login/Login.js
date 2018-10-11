@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'reactstrap';  // Container, Row, Col
+import { Form, Input, Button } from 'reactstrap';
 import './Login.css';
 import LoadingIndicator from 'components/loadingIndicator/LoadingIndicator';
 import { login } from 'services/authentication/api';
 import { setAuthentication } from 'services/authentication/actions'
 import { connect } from 'react-redux'
+import { setToken } from 'services/token';
 class Login extends Component {
 	handleChange = (e) => {
 		this.setState({
@@ -60,10 +61,11 @@ class LoginContainer extends React.Component {
 			loginInProgress: true
 		})
 		try {
-			await login({ username, password })
+			const response = await login({ username, password })
+			setToken(response.token)
+			this.props.setAuthentication(true);
 			const { history } = this.props
 			history.push('/');
-			this.props.setAuthentication(true);
 		} catch (e) {
 			this.setState({
 				loginInProgress: false

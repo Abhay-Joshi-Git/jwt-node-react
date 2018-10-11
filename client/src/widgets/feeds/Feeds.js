@@ -28,6 +28,8 @@ class FeedsContainer extends React.Component {
 	}
 
 	async componentDidMount() {
+		// console.log('feeds props', this.props, this.props.history);
+		// this.props.history.push('/login')
 		const feeds = await getFeeds()
 		this.setState({ feeds })
 	}
