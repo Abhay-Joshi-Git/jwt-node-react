@@ -8,7 +8,6 @@ let unauthorizedHandler = () => {
 
 axios.interceptors.request.use((config) => {
 	const authToken = getToken()
-	console.log(' in axios interceptor --- ', config, authToken)
 	let updatedConfig = { ...config }
 	if (config && config.headers && !config.headers.Authorization && authToken) {
 		updatedConfig.headers = {
