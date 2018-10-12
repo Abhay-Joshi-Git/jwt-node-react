@@ -5,7 +5,6 @@ import LoadingIndicator from 'components/loadingIndicator/LoadingIndicator';
 
 const Feeds = ({ feeds }) => (
 	<div className="h-100">
-		<h3>Feeds</h3>
 		{feeds && feeds.length ? (
 			<ListGroup>
 				{feeds.map(feed => (
@@ -42,8 +41,11 @@ class FeedsContainer extends React.Component {
 	render() {
 		return (
 			<div style={{ minHeight: 300, position: 'relative' }}>
-				{this.state.loadingData && <LoadingIndicator className="loading-container" />}
-				<Feeds feeds={this.state.feeds} />
+				<h3>Feeds</h3>
+				{this.state.loadingData
+					? <LoadingIndicator className="loading-container" />
+					: <Feeds feeds={this.state.feeds} />
+				}
 			</div>
 		)
 	}

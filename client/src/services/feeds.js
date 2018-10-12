@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { delay } from 'services/utils'
 
 export const getFeeds = async () => {
+	await delay(1500)
 	const response = await axios.get('/feeds');
-	// console.log('feeds response', response);
 	return response.data;
 }

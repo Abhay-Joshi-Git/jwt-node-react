@@ -40,7 +40,7 @@ app.post('/login', (req, res) => {
 	});
 });
 
-app.get('isloggedin', jwtMiddleWare, (req, res) => {
+app.get('/isloggedin', jwtMiddleWare, (req, res) => {
 	res.sendStatus(200);
 })
 

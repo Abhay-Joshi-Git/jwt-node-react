@@ -4,9 +4,7 @@ import { removeToken } from 'services/token'
 import { push } from 'react-router-redux';
 
 function* handleAuthStateSet(action) {
-	if (action.payload) {
-		yield put(push('/'));
-	} else {
+	if (!action.payload) {
 		removeToken();
 		yield put(push('/login'));
 	}
