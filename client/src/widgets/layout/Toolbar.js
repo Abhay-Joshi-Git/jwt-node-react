@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavItem, NavbarBrand, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Navbar, Nav, NavItem, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 const Toolbar = ({ auth, isLoginPage, location }) => (
 	<Navbar color="light" light expand="md" className="mb-4">
-		<NavbarBrand>
-			<Link to="/">Feeds Bar</Link>
-		</NavbarBrand>
+		<Link to="/" className="navbar-brand">Feeds Bar</Link>
 		<Nav>
 			<NavItem>
 				<Link to="/sources" className="nav-link">Sources</Link>

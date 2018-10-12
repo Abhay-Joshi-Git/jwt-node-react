@@ -6,7 +6,9 @@ import { push } from 'react-router-redux';
 function* handleAuthStateSet(action) {
 	if (!action.payload) {
 		removeToken();
-		yield put(push('/login'));
+		if (window.location.pathname !== '/login') {
+			yield put(push({ pathname: '/login', search: `?redirect=${window.location.pathname}` }));
+		}
 	}
 }
 

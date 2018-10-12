@@ -9,7 +9,7 @@ function* doLogin (action) {
 	const response = yield call(login, action.payload)
 	setToken(response.token)
 	yield put(setAuthentication(true))
-	yield put(push('/'));
+	yield put(push(action.payload.redirect || '/'));
 }
 
 export function* takeLogin() {

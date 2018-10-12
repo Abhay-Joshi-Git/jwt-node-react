@@ -4,6 +4,7 @@ import './Login.css';
 import LoadingIndicator from 'components/loadingIndicator/LoadingIndicator';
 import { login as initiateLogin } from './_store/actions'
 import { connect } from 'react-redux'
+import qs from 'query-string'
 
 class Login extends Component {
 	handleChange = (e) => {
@@ -66,7 +67,9 @@ class LoginContainer extends React.Component {
 			loginInProgress: true
 		})
 		try {
-			this.props.initiateLogin(username, password);
+			const search = qs.parse(this.props.location.search)
+			const redirect = search ? search.redirect : '/'
+			this.props.initiateLogin(username, password, redirect);
 		} catch (e) {
 			this.setState({
 				loginInProgress: false
