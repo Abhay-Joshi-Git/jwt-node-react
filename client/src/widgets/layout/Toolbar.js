@@ -6,7 +6,9 @@ import { withRouter } from 'react-router-dom'
 
 const Toolbar = ({ auth, isLoginPage, location }) => (
 	<Navbar color="light" light expand="md" className="mb-4">
-		<NavbarBrand href="/">Feeds Bar</NavbarBrand>
+		<NavbarBrand>
+			<Link to="/">Feeds Bar</Link>
+		</NavbarBrand>
 		<Nav>
 			<NavItem>
 				<Link to="/sources" className="nav-link">Sources</Link>

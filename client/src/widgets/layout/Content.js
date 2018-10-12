@@ -9,6 +9,7 @@ const Content = () => (
 		<Switch>
 			<Route exact path="/" component={withAuthCheck(Feeds)} />
 			<Route path="/login" component={Login} />
+			<Route exact path="/sources" component={withAuthCheck(() => (<div>Sources</div>))} />
 		</Switch>
 	</div>
 )
