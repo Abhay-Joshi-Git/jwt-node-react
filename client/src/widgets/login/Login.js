@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Form, Input, Button } from 'reactstrap';
 import './Login.css';
 import LoadingIndicator from 'components/loadingIndicator/LoadingIndicator';
-import { login as initiateLogin } from 'services/authentication/actions'
+import { login as initiateLogin } from './_store/actions'
 import { connect } from 'react-redux'
+
 class Login extends Component {
 	handleChange = (e) => {
 		this.setState({

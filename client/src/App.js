@@ -9,7 +9,7 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from 'store/reducers';
 import createHistory from 'history/createBrowserHistory'
-import authSaga from 'services/authentication/saga';
+import sagas from 'store/sagas';
 
 const history = createHistory()
 const sagaMiddleware = createSagaMiddleware()
@@ -20,7 +20,7 @@ const store = createStore(
 		sagaMiddleware
 	)
 )
-sagaMiddleware.run(authSaga)
+sagaMiddleware.run(sagas)
 
 configureInterceptor(store)
 
