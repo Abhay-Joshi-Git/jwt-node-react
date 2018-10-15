@@ -11,6 +11,11 @@ npm install
 npm start
 ```
 
+## description - 
+```
+- uses express-jwt as authentication middleware and jsonwebtoken to sign in user and creating token
+- authentication related APIs - login (POST - expects userName and password), isloggedin (GET)
+```
 
 # client - 
 
@@ -20,5 +25,7 @@ cd client
 npm install
 npm start
 ```
+
+
 
 
